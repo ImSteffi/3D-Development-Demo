@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="et">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>3D Viewer — README</title>
+ <style>
+  :root { color-scheme: light; font-family: system-ui, sans-serif; color: #202124; background: #f5f6f7; }
+  body { max-width: 900px; margin: 0 auto; padding: 40px 24px; line-height: 1.6; }
+  h1 { margin: 0 0 20px; font-size: 30px; }
+  h2 { margin: 0; font-size: 21px; }
+  p { margin: 14px 0; }
+  code, pre { font-family: ui-monospace, Consolas, monospace; }
+  pre { margin: 14px 0 0; padding: 22px; background: white; border: 1px solid #dfe2e6; border-radius: 12px; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.5; font-size: 14px; }
+  button { padding: 8px 14px; border: 1px solid #cbd0d6; border-radius: 8px; background: white; color: inherit; cursor: pointer; font: inherit; }
+  button:focus-visible { outline: 2px solid #df620e; outline-offset: 3px; }
+  button[aria-pressed="true"] { color: white; background: #202124; border-color: #202124; }
+  .languages, .code-heading { display: flex; align-items: center; gap: 8px; }
+  .code-heading { margin-top: 30px; justify-content: space-between; flex-wrap: wrap; }
+  [hidden] { display: none; }
+ </style>
+</head>
+<body>
+ <h1>3D Viewer</h1>
+ <nav class="languages" aria-label="Language">
+  <button type="button" data-language="et" aria-pressed="true">EST</button>
+  <button type="button" data-language="en" aria-pressed="false">ENG</button>
+ </nav>
+ <section id="et" lang="et">
+  <p>Majuta kogu <code>viewer</code>-kaust oma veebiserveris. Kopeeri allolev kood oma veebilehele
+   ja muuda IFRAME-i <code>src</code> oma serveris asuva <code>viewer/index.html</code> aadressiks.
+   Hoia kausta failid ja alamkaustad koos.</p>
+  <p>Raami suurust ja stiile muuda oma veebilehe CSS-is.
+   Viewer'i nuppude ja paneelide värve saad muuta failis <code>viewer/theme.css</code>.</p>
+ </section>
+ <section id="en" lang="en" hidden>
+  <p>Host the entire <code>viewer</code> folder on your web server. Copy the code below into your webpage
+   and change the iframe <code>src</code> to the URL of <code>viewer/index.html</code> on your server.
+   Keep its files and subfolders together.</p>
+  <p>Adjust the frame's size and styling in your website CSS.
+   Edit <code>viewer/theme.css</code> to change the viewer's button and panel colours.</p>
+ </section>
+ <div class="code-heading">
+  <h2>Copy to your page</h2>
+  <button type="button" id="copy">Copy code</button>
+ </div>
+ <pre><code id="embed-code">&lt;iframe
+  class="project-viewer"
+  src="/3d/viewer/index.html"
+  title="Interactive 3D view"
+  loading="lazy"
+  allow="fullscreen; xr-spatial-tracking"
+  allowfullscreen&gt;
+&lt;/iframe&gt;
+
+&lt;style&gt;
+.project-viewer {
+  display: block;
+  width: 100%;
+  height: 600px;
+  border: 0;
+  border-radius: 16px;
+}
+&lt;/style&gt;</code></pre>
+ <script>
+  document.querySelectorAll('[data-language]').forEach(button => {
+   button.addEventListener('click', () => {
+    const language = button.dataset.language;
+    document.documentElement.lang = language;
+    document.getElementById('et').hidden = language !== 'et';
+    document.getElementById('en').hidden = language !== 'en';
+    document.querySelectorAll('[data-language]').forEach(item => {
+     item.setAttribute('aria-pressed', String(item === button));
+    });
+   });
+  });
+  document.getElementById('copy').addEventListener('click', async () => {
+   const code = document.getElementById('embed-code');
+   const button = document.getElementById('copy');
+   try {
+    await navigator.clipboard.writeText(code.textContent);
+    button.textContent = 'Copied!';
+   } catch {
+    const range = document.createRange();
+    range.selectNodeContents(code);
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+    button.textContent = 'Ctrl+C / Cmd+C';
+   }
+  });
+ </script>
+</body>
+</html>

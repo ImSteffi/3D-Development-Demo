@@ -1,0 +1,7 @@
+/* Edit these variables to match your website. No build step is needed. */
+#viewer .sse-viewer {
+ --sse-accent: #ff803c;
+ --sse-bkg: #202123;
+ --sse-text-light: #ffffff;
+}
+/* Set the iframe's size, corners and shadow in the parent website's CSS. */
