@@ -48,3 +48,9 @@ Mobiilil saab kõiki samme valida tekstiliste nuppudega. 3D-linnaosavaade kasuta
 
 
 
+
+## Vercel Web Analytics
+
+Veebilehe juurtasandil kasutatakse ametlikku `@vercel/analytics/react` komponenti. See lisab külastuste ja lehevaatamiste kogumise veebilehele; vieweri paketti ei muudeta. Kohalikus arenduses kasutab komponent arendusrežiimi.
+
+Verceli projekti Web Analytics peab olema sisse lülitatud. Muudatus hakkab avalikul lehel tööle pärast uut Verceli deploymenti. Külastuste nähtavust tuleb seejärel kontrollida Verceli Analyticsi vaates; kohalik build ei kinnita andmete jõudmist Vercelisse.
